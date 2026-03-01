@@ -1,0 +1,24 @@
+{
+  "[development]": {
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "user": {
+          "password": "user",
+          "ID": "user",
+          "roles": ["RequestorRole", "ApproverRole"]
+        },
+        "requestor": {
+          "password": "requestor",
+          "ID": "requestor",
+          "roles": ["RequestorRole"]
+        },
+        "approver": {
+          "password": "approver",
+          "ID": "approver",
+          "roles": ["ApproverRole"]
+        }
+      }
+    }
+  }
+}

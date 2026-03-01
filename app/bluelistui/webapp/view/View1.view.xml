@@ -1,0 +1,79 @@
+<mvc:View controllerName="com.bgsw.bluelistui.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <Page id="page" title="{i18n>title}" showNavButton="false">
+        <content>
+            <VBox class="sapUiSmallMargin">
+
+                <!-- Smart Filter Bar -->
+                <smartFilterBar:SmartFilterBar id="smartFilterBar"
+                    entitySet="Requests"
+                    persistencyKey="SmartFilter_Requests"
+                    basicSearchFieldName="FullName"
+                    showFilterConfiguration="true"
+                    useToolbar="true">
+                    <smartFilterBar:controlConfiguration>
+                        <smartFilterBar:ControlConfiguration key="Project_ProjectID" label="Project" visibleInAdvancedArea="true" index="1">
+                            <smartFilterBar:customControl>
+                                <Select id="filterProject"
+                                    forceSelection="false"
+                                    selectedKey="{filterModel>/Project_ProjectID}"
+                                    items="{/Projects}">
+                                    <core:Item key="{ProjectID}" text="{ProjectName}"/>
+                                </Select>
+                            </smartFilterBar:customControl>
+                        </smartFilterBar:ControlConfiguration>
+                        <smartFilterBar:ControlConfiguration key="Table_TableID" label="Table" visibleInAdvancedArea="true" index="2">
+                            <smartFilterBar:customControl>
+                                <Select id="filterTable"
+                                    forceSelection="false"
+                                    selectedKey="{filterModel>/Table_TableID}"
+                                    items="{/Tables}">
+                                    <core:Item key="{TableID}" text="{TableName}"/>
+                                </Select>
+                            </smartFilterBar:customControl>
+                        </smartFilterBar:ControlConfiguration>
+                        <smartFilterBar:ControlConfiguration key="Status" label="Status" visibleInAdvancedArea="true" index="3"/>
+                    </smartFilterBar:controlConfiguration>
+                </smartFilterBar:SmartFilterBar>
+
+                <!-- Smart Table -->
+                <smartTable:SmartTable id="smartTable"
+                    entitySet="Requests"
+                    smartFilterId="smartFilterBar"
+                    tableType="ResponsiveTable"
+                    header="Access Requests"
+                    showRowCount="true"
+                    enableAutoBinding="true"
+                    enableExport="true"
+                    showFullScreenButton="true"
+                    useExportToExcel="true"
+                    useVariantManagement="false"
+                    useTablePersonalisation="true"
+                    persistencyKey="SmartTable_Requests"
+                    demandPopin="true"
+                    initiallyVisibleFields="FullName,Project_ProjectID,Table_TableID,ApproverNTID,TrainingStatus,Status,AccessFromDate,AccessEndDate"
+                    beforeRebindTable=".onBeforeRebindTable"
+                    initialise=".onSmartTableInit">
+                    <smartTable:customToolbar>
+                        <OverflowToolbar>
+                            <ToolbarSpacer/>
+                            <Button id="btnCreate"
+                                text="Create"
+                                press=".onCreateRequest"/>
+                            <Button id="btnEdit"
+                                text="Edit"
+                                press=".onEditRequest"/>
+                            <Button id="btnDelete"
+                                text="Delete"
+                                press=".onDeleteRequest"/>
+                        </OverflowToolbar>
+                    </smartTable:customToolbar>
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,14 @@
+/* Enter your custom styles here */
+
+.sapMPanel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#btnSubmit {
+    min-width: 160px;
+}
+
+#btnReset {
+    min-width: 120px;
+}

@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog id="createRequestDialog"
+        title="{formModel>/dialogTitle}"
+        contentWidth="550px"
+        draggable="true"
+        resizable="true">
+        <content>
+            <f:SimpleForm id="dialogForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+                columnsXL="1" columnsL="1" columnsM="1"
+                class="sapUiSmallMarginTop">
+
+                <Label text="NT ID" required="true"/>
+                <Input id="dlgNTID" value="{formModel>/NTID}" placeholder="Enter your NT ID"/>
+
+                <Label text="Full Name" required="true"/>
+                <Input id="dlgFullName" value="{formModel>/FullName}" placeholder="Enter your full name"/>
+
+                <Label text="Email ID" required="true"/>
+                <Input id="dlgMailID" value="{formModel>/MailID}" type="Email" placeholder="Enter your email"/>
+
+                <Label text="Project" required="true"/>
+                <Select id="dlgProject"
+                    forceSelection="false"
+                    selectedKey="{formModel>/Project_ProjectID}"
+                    items="{/Projects}">
+                    <core:Item key="{ProjectID}" text="{ProjectName}"/>
+                </Select>
+
+                <Label text="Table" required="true"/>
+                <Select id="dlgTable"
+                    forceSelection="false"
+                    selectedKey="{formModel>/Table_TableID}"
+                    items="{/Tables}">
+                    <core:Item key="{TableID}" text="{TableName}"/>
+                </Select>
+
+                <Label text="Approver NT ID"/>
+                <Input id="dlgApproverNTID" value="{formModel>/ApproverNTID}" placeholder="Enter approver NT ID"/>
+
+                <Label text="Training Status" required="true"/>
+                <Select id="dlgTrainingStatus"
+                    forceSelection="false"
+                    selectedKey="{formModel>/TrainingStatus}">
+                    <core:Item key="Completed" text="Completed"/>
+                    <core:Item key="In Progress" text="In Progress"/>
+                    <core:Item key="Not Started" text="Not Started"/>
+                </Select>
+
+                <Label text="Access From Date" required="true"/>
+                <DatePicker id="dlgFromDate" value="{formModel>/AccessFromDate}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="Select start date"/>
+
+                <Label text="Access End Date" required="true"/>
+                <DatePicker id="dlgEndDate" value="{formModel>/AccessEndDate}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="Select end date"/>
+
+                <Label text="Comments"/>
+                <TextArea id="dlgComments" value="{formModel>/Comments}" rows="3" placeholder="Enter any comments"/>
+
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="{formModel>/submitButtonText}" type="Emphasized" icon="sap-icon://paper-plane" press=".onSubmitRequest"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCancelDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
