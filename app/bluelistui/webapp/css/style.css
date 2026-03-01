@@ -12,3 +12,19 @@
 #btnReset {
     min-width: 120px;
 }
+
+/* Dashboard tile styles */
+.dashboardTile {
+    width: 14rem !important;
+    height: 14rem !important;
+    margin: 1rem;
+}
+
+.dashboardTile .sapMGTHdrTxt {
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+.dashboardTile .sapMImg {
+    font-size: 3rem;
+}

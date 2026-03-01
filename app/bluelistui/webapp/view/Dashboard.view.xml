@@ -1,0 +1,47 @@
+<mvc:View controllerName="com.bgsw.bluelistui.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page id="dashboardPage" title="Bluelist - Access Management" showNavButton="false">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop">
+                <Title text="Welcome to Bluelist Access Management" level="H1" class="sapUiMediumMarginBottom"/>
+                <Text text="Select an option to continue" class="sapUiSmallMarginBottom sapThemeHighlight-asColor"/>
+                <HBox justifyContent="Center" class="sapUiLargeMarginTop" wrap="Wrap">
+                    <GenericTile
+                        id="tileRequestor"
+                        header="Submit Request"
+                        subheader="Create a new access request"
+                        press=".onRequestorTilePress"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom dashboardTile"
+                        frameType="OneByOne"
+                        state="Loaded">
+                        <tileContent>
+                            <TileContent>
+                                <content>
+                                    <ImageContent src="sap-icon://create-form"/>
+                                </content>
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                    <GenericTile
+                        id="tileApprover"
+                        header="Approve Requests"
+                        subheader="Review and approve pending requests"
+                        press=".onApproverTilePress"
+                        class="sapUiSmallMarginBegin sapUiSmallMarginBottom dashboardTile"
+                        frameType="OneByOne"
+                        state="Loaded">
+                        <tileContent>
+                            <TileContent>
+                                <content>
+                                    <ImageContent src="sap-icon://approvals"/>
+                                </content>
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                </HBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

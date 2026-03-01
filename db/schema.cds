@@ -7,6 +7,7 @@ using {
 
 entity Requestor : managed {
     key RequestID     : UUID;
+        RequestNo     : String(20);
         NTID          : String(50);
         FullName      : String(200);
         Project       : Association to Projects;

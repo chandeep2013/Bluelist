@@ -19,6 +19,10 @@ sap.ui.define([
             // Set date display format for SmartTable columns
             sap.ui.getCore().getConfiguration().getFormatSettings().setDatePattern("medium", "dd-MM-yyyy");
 
+            // Attach route matched event
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.getRoute("RouteView1").attachPatternMatched(this._onRouteMatched, this);
+
             // Initialize form model for the dialog
             const oFormModel = new JSONModel(this._getEmptyFormData());
             this.getView().setModel(oFormModel, "formModel");
@@ -268,7 +272,8 @@ sap.ui.define([
             };
 
             if (oData.isEditMode && oData.editRequestID) {
-                // Update existing request
+                // Update existing request — reset status to Pending Approval so approver sees it
+                oPayload.Status = "Pending Approval";
                 const sPath = "/Requests(guid'" + oData.editRequestID + "')";
                 oModel.update(sPath, oPayload, {
                     success: () => {
@@ -314,6 +319,18 @@ sap.ui.define([
             this._pDialog.then((oDialog) => {
                 oDialog.close();
             });
+        },
+
+        _onRouteMatched() {
+            // Refresh table data when returning to this view
+            var oSmartTable = this.byId("smartTable");
+            if (oSmartTable) {
+                oSmartTable.rebindTable();
+            }
+        },
+
+        onNavBack() {
+            this.getOwnerComponent().getRouter().navTo("RouteDashboard");
         }
     });
 });

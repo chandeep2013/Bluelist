@@ -26,7 +26,6 @@ service RequestorService {
 @path: '/approver'
 service ApproverService {
 
-    @odata.draft.enabled
     entity Requests as projection on bluelist.Requestor {
         *,
         Project : redirected to Projects,
@@ -42,6 +41,11 @@ service ApproverService {
             Common.SideEffects             : {TargetProperties: ['_it/Status']}
         )
         action rejectRequest()  returns Requests;
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/Status']}
+        )
+        action sendBack() returns Requests;
     };
 
     @readonly entity Projects as projection on bluelist.Projects;

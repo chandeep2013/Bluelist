@@ -23,6 +23,14 @@
           "annotations": [],
           "odataVersion": "2.0"
         }
+      },
+      "approverService": {
+        "uri": "/odata/v2/approver/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "2.0"
+        }
       }
     }
   },
@@ -74,6 +82,15 @@
           "defaultCountMode": "Inline",
           "useBatch": true
         }
+      },
+      "approver": {
+        "dataSource": "approverService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "useBatch": true
+        }
       }
     },
     "resources": {
@@ -97,17 +114,39 @@
       },
       "routes": [
         {
+          "name": "RouteDashboard",
+          "pattern": "",
+          "target": [
+            "TargetDashboard"
+          ]
+        },
+        {
           "name": "RouteView1",
-          "pattern": ":?query:",
+          "pattern": "requestor",
           "target": [
             "TargetView1"
+          ]
+        },
+        {
+          "name": "RouteApproverView",
+          "pattern": "approver",
+          "target": [
+            "TargetApproverView"
           ]
         }
       ],
       "targets": {
+        "TargetDashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
+        },
         "TargetView1": {
           "id": "View1",
           "name": "View1"
+        },
+        "TargetApproverView": {
+          "id": "ApproverView",
+          "name": "ApproverView"
         }
       }
     },
