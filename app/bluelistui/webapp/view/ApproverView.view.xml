@@ -1,82 +1,197 @@
-<mvc:View controllerName="com.bgsw.bluelistui.controller.ApproverView"
+<mvc:View
+    controllerName="com.bgsw.bluelistui.controller.ApproverView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns:core="sap.ui.core">
-    <Page id="approverPage" title="Approve Access Requests" showNavButton="true" navButtonPress=".onNavBack">
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        id="approverPage"
+        title="Approve Access Requests"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
         <content>
             <VBox class="sapUiSmallMargin">
-
                 <!-- Smart Filter Bar -->
-                <smartFilterBar:SmartFilterBar id="approverSmartFilterBar"
+                <smartFilterBar:SmartFilterBar
+                    id="approverSmartFilterBar"
                     entitySet="Requests"
                     persistencyKey="SmartFilter_ApproverRequests"
                     basicSearchFieldName="FullName"
                     showFilterConfiguration="true"
-                    useToolbar="true">
+                    useToolbar="true"
+                >
                     <smartFilterBar:controlConfiguration>
-                        <smartFilterBar:ControlConfiguration key="Project_ProjectID" label="Project" visibleInAdvancedArea="true" index="1">
+                        <smartFilterBar:ControlConfiguration
+                            key="Project_ProjectID"
+                            label="Project"
+                            visibleInAdvancedArea="true"
+                            index="1"
+                        >
                             <smartFilterBar:customControl>
-                                <Select id="approverFilterProject"
+                                <Select
+                                    id="approverFilterProject"
                                     forceSelection="false"
                                     selectedKey="{approverFilterModel>/Project_ProjectID}"
-                                    items="{/Projects}">
-                                    <core:Item key="{ProjectID}" text="{ProjectName}"/>
+                                    items="{/Projects}"
+                                >
+                                    <core:Item
+                                        key="{ProjectID}"
+                                        text="{ProjectName}"
+                                    />
                                 </Select>
                             </smartFilterBar:customControl>
                         </smartFilterBar:ControlConfiguration>
-                        <smartFilterBar:ControlConfiguration key="Table_TableID" label="Table" visibleInAdvancedArea="true" index="2">
+                        <smartFilterBar:ControlConfiguration
+                            key="Table_TableID"
+                            label="Table"
+                            visibleInAdvancedArea="true"
+                            index="2"
+                        >
                             <smartFilterBar:customControl>
-                                <Select id="approverFilterTable"
+                                <Select
+                                    id="approverFilterTable"
                                     forceSelection="false"
                                     selectedKey="{approverFilterModel>/Table_TableID}"
-                                    items="{/Tables}">
-                                    <core:Item key="{TableID}" text="{TableName}"/>
+                                    items="{/Tables}"
+                                >
+                                    <core:Item
+                                        key="{TableID}"
+                                        text="{TableName}"
+                                    />
                                 </Select>
                             </smartFilterBar:customControl>
                         </smartFilterBar:ControlConfiguration>
                     </smartFilterBar:controlConfiguration>
                 </smartFilterBar:SmartFilterBar>
-
-                <!-- Smart Table -->
-                <smartTable:SmartTable id="approverSmartTable"
-                    entitySet="Requests"
-                    smartFilterId="approverSmartFilterBar"
-                    tableType="ResponsiveTable"
-                    header="Pending Approval Requests"
-                    showRowCount="true"
-                    enableAutoBinding="true"
-                    enableExport="true"
-                    showFullScreenButton="true"
-                    useExportToExcel="true"
-                    useVariantManagement="false"
-                    useTablePersonalisation="true"
-                    persistencyKey="SmartTable_ApproverRequests"
-                    demandPopin="true"
-                    initiallyVisibleFields="RequestNo,FullName,NTID,MailID,Project_ProjectID,Table_TableID,TrainingStatus,Status,AccessFromDate,AccessEndDate,Comments"
-                    beforeRebindTable=".onBeforeRebindTable"
-                    initialise=".onSmartTableInit">
-                    <smartTable:customToolbar>
-                        <OverflowToolbar>
-                            <ToolbarSpacer/>
-                            <Button id="btnApprove"
-                                text="Approve"
-                                icon="sap-icon://accept"
-                                type="Accept"
-                                press=".onApproveRequest"/>
-                            <Button id="btnReject"
-                                text="Reject"
-                                icon="sap-icon://decline"
-                                type="Reject"
-                                press=".onRejectRequest"/>
-                            <Button id="btnSendBack"
-                                text="Send Back"
-                                icon="sap-icon://undo"
-                                press=".onSendBackRequest"/>
-                        </OverflowToolbar>
-                    </smartTable:customToolbar>
-                </smartTable:SmartTable>
+                <IconTabBar
+                    expanded="{device>/isNoPhone}"
+                    class="sapUiResponsiveContentPadding"
+                >
+                    <items>
+                        <IconTabFilter
+                            text="Pending Requests"
+                            key="info"
+                        >
+                            <!-- Smart Table -->
+                            <smartTable:SmartTable
+                                id="approverSmartTable"
+                                entitySet="Requests"
+                                smartFilterId="approverSmartFilterBar"
+                                tableType="ResponsiveTable"
+                                header="Pending Approval Requests"
+                                showRowCount="true"
+                                enableAutoBinding="true"
+                                enableExport="true"
+                                showFullScreenButton="true"
+                                useExportToExcel="true"
+                                useVariantManagement="false"
+                                useTablePersonalisation="true"
+                                persistencyKey="SmartTable_ApproverRequests"
+                                demandPopin="true"
+                                initiallyVisibleFields="RequestNo,FullName,NTID,MailID,Project_ProjectID,Table_TableID,Role_RoleID,TrainingStatus,Status,AccessFromDate,AccessEndDate,Comments"
+                                beforeRebindTable=".onBeforeRebindTable"
+                                initialise=".onSmartTableInit"
+                            >
+                                <smartTable:customToolbar>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer />
+                                        <Button
+                                            id="btnApprove"
+                                            text="Approve"
+                                            icon="sap-icon://accept"
+                                            type="Accept"
+                                            press=".onApproveRequest"
+                                        />
+                                        <Button
+                                            id="btnReject"
+                                            text="Reject"
+                                            icon="sap-icon://decline"
+                                            type="Reject"
+                                            press=".onRejectRequest"
+                                        />
+                                        <Button
+                                            id="btnSendBack"
+                                            text="Send Back"
+                                            icon="sap-icon://undo"
+                                            press=".onSendBackRequest"
+                                        />
+                                    </OverflowToolbar>
+                                </smartTable:customToolbar>
+                            </smartTable:SmartTable>
+                        </IconTabFilter>
+                        <IconTabFilter
+                            text="Approved"
+                            key="approved"
+                        >
+                            <smartTable:SmartTable
+                                id="approvedSmartTable"
+                                entitySet="Requests"
+                                tableType="ResponsiveTable"
+                                header="Approved Requests"
+                                showRowCount="true"
+                                enableAutoBinding="true"
+                                enableExport="true"
+                                showFullScreenButton="true"
+                                useExportToExcel="true"
+                                useVariantManagement="false"
+                                useTablePersonalisation="true"
+                                persistencyKey="SmartTable_ApprovedRequests"
+                                demandPopin="true"
+                                initiallyVisibleFields="RequestNo,FullName,NTID,MailID,Project_ProjectID,Table_TableID,Role_RoleID,TrainingStatus,Status,AccessFromDate,AccessEndDate,Comments"
+                                beforeRebindTable=".onBeforeRebindApprovedTable"
+                                initialise=".onApprovedSmartTableInit"
+                            >
+                                <smartTable:customToolbar>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer />
+                                        <Button
+                                            id="btnRevoke"
+                                            text="Revoke"
+                                            icon="sap-icon://sys-cancel"
+                                            type="Reject"
+                                            press=".onRevokeRequest"
+                                        />
+                                    </OverflowToolbar>
+                                </smartTable:customToolbar>
+                            </smartTable:SmartTable>
+                        </IconTabFilter>
+                        <IconTabFilter
+                            text="Revoked"
+                            key="revoked"
+                        >
+                            <smartTable:SmartTable
+                                id="revokedSmartTable"
+                                entitySet="Requests"
+                                tableType="ResponsiveTable"
+                                header="Revoked Requests"
+                                showRowCount="true"
+                                enableAutoBinding="true"
+                                enableExport="true"
+                                showFullScreenButton="true"
+                                useExportToExcel="true"
+                                useVariantManagement="false"
+                                useTablePersonalisation="true"
+                                persistencyKey="SmartTable_RevokedRequests"
+                                demandPopin="true"
+                                initiallyVisibleFields="RequestNo,FullName,NTID,MailID,Project_ProjectID,Table_TableID,Role_RoleID,TrainingStatus,Status,AccessFromDate,AccessEndDate,Comments"
+                                beforeRebindTable=".onBeforeRebindRevokedTable"
+                                initialise=".onRevokedSmartTableInit"
+                            />
+                        </IconTabFilter>
+                        <IconTabFilter
+                            text="Logs"
+                            key="logs"
+                        >
+                            <core:Fragment
+                                fragmentName="com.bgsw.bluelistui.view.LogsTab"
+                                type="XML"
+                            />
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
             </VBox>
         </content>
     </Page>

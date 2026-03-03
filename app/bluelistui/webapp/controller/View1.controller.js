@@ -79,9 +79,9 @@ sap.ui.define([
 
             // Expand navigation properties to fetch Project Name and Table Name
             if (oBindingParams.parameters.expand) {
-                oBindingParams.parameters.expand += ",Project,Table";
+                oBindingParams.parameters.expand += ",Project,Table,Role";
             } else {
-                oBindingParams.parameters.expand = "Project,Table";
+                oBindingParams.parameters.expand = "Project,Table,Role";
             }
 
             if (oFilterData.Project_ProjectID) {
@@ -99,6 +99,7 @@ sap.ui.define([
                 MailID: "",
                 Project_ProjectID: "",
                 Table_TableID: "",
+                Role_RoleID: "",
                 ApproverNTID: "",
                 TrainingStatus: "",
                 AccessFromDate: "",
@@ -173,6 +174,7 @@ sap.ui.define([
                             MailID: oFullData.MailID || "",
                             Project_ProjectID: oFullData.Project_ProjectID || "",
                             Table_TableID: oFullData.Table_TableID || "",
+                            Role_RoleID: oFullData.Role_RoleID || "",
                             ApproverNTID: oFullData.ApproverNTID || "",
                             TrainingStatus: oFullData.TrainingStatus || "",
                             AccessFromDate: oFullData.AccessFromDate || "",
@@ -245,7 +247,7 @@ sap.ui.define([
             // Validate required fields
             if (!oData.NTID || !oData.FullName || !oData.MailID ||
                 !oData.Project_ProjectID || !oData.Table_TableID ||
-                !oData.TrainingStatus ||
+                !oData.Role_RoleID || !oData.TrainingStatus ||
                 !oData.AccessFromDate || !oData.AccessEndDate) {
                 MessageBox.error("Please fill in all required fields.");
                 return;
@@ -264,6 +266,7 @@ sap.ui.define([
                 MailID: oData.MailID,
                 Project_ProjectID: oData.Project_ProjectID,
                 Table_TableID: oData.Table_TableID,
+                Role_RoleID: oData.Role_RoleID,
                 ApproverNTID: oData.ApproverNTID,
                 TrainingStatus: oData.TrainingStatus,
                 AccessFromDate: oData.AccessFromDate,

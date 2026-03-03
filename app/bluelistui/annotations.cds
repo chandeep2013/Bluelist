@@ -10,6 +10,10 @@ annotate service.Requests with {
         Text: Table.TableName,
         TextArrangement: #TextOnly
     };
+    Role @Common: {
+        Text: Role.RoleName,
+        TextArrangement: #TextOnly
+    };
 };
 
 annotate approverService.Requests with {
@@ -19,6 +23,10 @@ annotate approverService.Requests with {
     };
     Table @Common: {
         Text: Table.TableName,
+        TextArrangement: #TextOnly
+    };
+    Role @Common: {
+        Text: Role.RoleName,
         TextArrangement: #TextOnly
     };
 };

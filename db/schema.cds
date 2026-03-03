@@ -12,6 +12,7 @@ entity Requestor : managed {
         FullName      : String(200);
         Project       : Association to Projects;
         Table         : Association to Tables;
+        Role          : Association to Roles;
         MailID        : String(200);
         ApproverNTID  : String(50);
         Status        : String(20);

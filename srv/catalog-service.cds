@@ -7,7 +7,8 @@ service RequestorService {
     entity Requests as projection on bluelist.Requestor {
         *,
         Project : redirected to Projects,
-        Table   : redirected to Tables
+        Table   : redirected to Tables,
+        Role    : redirected to Roles
     } actions {
         @(
             cds.odata.bindingparameter.name: '_it',
@@ -29,7 +30,8 @@ service ApproverService {
     entity Requests as projection on bluelist.Requestor {
         *,
         Project : redirected to Projects,
-        Table   : redirected to Tables
+        Table   : redirected to Tables,
+        Role    : redirected to Roles
     } actions {
         @(
             cds.odata.bindingparameter.name: '_it',

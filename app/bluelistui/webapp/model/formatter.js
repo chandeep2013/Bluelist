@@ -19,6 +19,8 @@ sap.ui.define([], function () {
                     return "Information";
                 case "Sent Back":
                     return "Warning";
+                case "Revoked":
+                    return "Error";
                 default:
                     return "None";
             }
@@ -41,6 +43,8 @@ sap.ui.define([], function () {
                     return "sap-icon://draft";
                 case "Sent Back":
                     return "sap-icon://undo";
+                case "Revoked":
+                    return "sap-icon://sys-cancel";
                 default:
                     return "";
             }

@@ -41,8 +41,13 @@
                     <core:Item key="{TableID}" text="{TableName}"/>
                 </Select>
 
-                <Label text="Approver NT ID"/>
-                <Input id="dlgApproverNTID" value="{formModel>/ApproverNTID}" placeholder="Enter approver NT ID"/>
+                <Label text="Role" required="true"/>
+                <Select id="dlgRole"
+                    forceSelection="false"
+                    selectedKey="{formModel>/Role_RoleID}"
+                    items="{/Roles}">
+                    <core:Item key="{RoleID}" text="{RoleName}"/>
+                </Select>
 
                 <Label text="Training Status" required="true"/>
                 <Select id="dlgTrainingStatus"

@@ -1,8 +1,8 @@
 RoleID;RoleName
-1;Fiori Developer
-2;Fiori Configurator
-3;Lead Developer
-4;TDM
-5;ABAP Developer
-6;Authorization Developer
-7;Support Access
+c1b2c3d4-e5f6-7890-abcd-ef1234567801;Fiori Developer
+c1b2c3d4-e5f6-7890-abcd-ef1234567802;Fiori Configurator
+c1b2c3d4-e5f6-7890-abcd-ef1234567803;Lead Developer
+c1b2c3d4-e5f6-7890-abcd-ef1234567804;TDM
+c1b2c3d4-e5f6-7890-abcd-ef1234567805;ABAP Developer
+c1b2c3d4-e5f6-7890-abcd-ef1234567806;Authorization Developer
+c1b2c3d4-e5f6-7890-abcd-ef1234567807;Support Access

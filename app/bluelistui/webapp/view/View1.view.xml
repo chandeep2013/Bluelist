@@ -55,7 +55,7 @@
                     useTablePersonalisation="true"
                     persistencyKey="SmartTable_Requests"
                     demandPopin="true"
-                    initiallyVisibleFields="RequestNo,FullName,Project_ProjectID,Table_TableID,ApproverNTID,TrainingStatus,Status,AccessFromDate,AccessEndDate"
+                    initiallyVisibleFields="RequestNo,FullName,Project_ProjectID,Table_TableID,Role_RoleID,TrainingStatus,Status,AccessFromDate,AccessEndDate"
                     beforeRebindTable=".onBeforeRebindTable"
                     initialise=".onSmartTableInit">
                     <smartTable:customToolbar>

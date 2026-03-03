@@ -1,0 +1,133 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds">
+
+    <l:BlockLayout id="logsBlockLayout" background="Light">
+
+        <!-- ===== ROW 1 ===== -->
+        <l:BlockLayoutRow>
+
+            <!-- Cell 1: Project Filter + Pie Chart (Status Breakdown) -->
+            <l:BlockLayoutCell title="Requests by Status">
+                <VBox class="sapUiSmallMargin">
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <Label text="Project:" class="sapUiSmallMarginEnd"/>
+                        <Select id="logsProjectFilter"
+                            forceSelection="false"
+                            selectedKey="{logsModel>/selectedProjectID}"
+                            change=".onLogsProjectFilterChange"
+                            items="{/Projects}">
+                            <core:Item key="" text="All Projects"/>
+                            <core:Item key="{ProjectID}" text="{ProjectName}"/>
+                        </Select>
+                    </HBox>
+
+                    <viz:VizFrame id="statusPieChart"
+                        vizType="pie"
+                        width="100%"
+                        height="350px"
+                        selectData=".onPieChartSelect"
+                        uiConfig="{applicationSet: 'fiori'}">
+                        <viz:dataset>
+                            <vizData:FlattenedDataset data="{logsModel>/statusData}">
+                                <vizData:dimensions>
+                                    <vizData:DimensionDefinition name="Status" value="{logsModel>Status}"/>
+                                </vizData:dimensions>
+                                <vizData:measures>
+                                    <vizData:MeasureDefinition name="Count" value="{logsModel>Count}"/>
+                                </vizData:measures>
+                            </vizData:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <vizFeeds:FeedItem uid="size" type="Measure" values="Count"/>
+                            <vizFeeds:FeedItem uid="color" type="Dimension" values="Status"/>
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </VBox>
+            </l:BlockLayoutCell>
+
+            <!-- Cell 2: Column Chart (Records by Table) -->
+            <l:BlockLayoutCell title="Requests by Table">
+                <VBox class="sapUiSmallMargin">
+                    <viz:VizFrame id="tableColumnChart"
+                        vizType="column"
+                        width="100%"
+                        height="400px"
+                        uiConfig="{applicationSet: 'fiori'}">
+                        <viz:dataset>
+                            <vizData:FlattenedDataset data="{logsModel>/tableData}">
+                                <vizData:dimensions>
+                                    <vizData:DimensionDefinition name="Table" value="{logsModel>TableName}"/>
+                                </vizData:dimensions>
+                                <vizData:measures>
+                                    <vizData:MeasureDefinition name="Count" value="{logsModel>Count}"/>
+                                </vizData:measures>
+                            </vizData:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <vizFeeds:FeedItem uid="valueAxis" type="Measure" values="Count"/>
+                            <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="Table"/>
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </VBox>
+            </l:BlockLayoutCell>
+
+        </l:BlockLayoutRow>
+
+        <!-- ===== ROW 2 ===== -->
+        <l:BlockLayoutRow>
+
+            <!-- Cell 1: Column Chart (Records by Role) -->
+            <l:BlockLayoutCell title="Requests by Role">
+                <VBox class="sapUiSmallMargin">
+                    <viz:VizFrame id="roleColumnChart"
+                        vizType="column"
+                        width="100%"
+                        height="400px"
+                        uiConfig="{applicationSet: 'fiori'}">
+                        <viz:dataset>
+                            <vizData:FlattenedDataset data="{logsModel>/roleData}">
+                                <vizData:dimensions>
+                                    <vizData:DimensionDefinition name="Role" value="{logsModel>RoleName}"/>
+                                </vizData:dimensions>
+                                <vizData:measures>
+                                    <vizData:MeasureDefinition name="Count" value="{logsModel>Count}"/>
+                                </vizData:measures>
+                            </vizData:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <vizFeeds:FeedItem uid="valueAxis" type="Measure" values="Count"/>
+                            <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="Role"/>
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </VBox>
+            </l:BlockLayoutCell>
+
+            <!-- Cell 2: Summary Info -->
+            <l:BlockLayoutCell title="Summary">
+                <VBox class="sapUiSmallMargin">
+                    <ObjectHeader
+                        title="Request Statistics"
+                        number="{logsModel>/totalCount}"
+                        numberUnit="Total Requests">
+                        <attributes>
+                            <ObjectAttribute title="Selected Status" text="{logsModel>/selectedStatus}"/>
+                            <ObjectAttribute title="Selected Project" text="{logsModel>/selectedProjectName}"/>
+                        </attributes>
+                        <statuses>
+                            <ObjectStatus title="Approved" text="{logsModel>/approvedCount}" state="Success"/>
+                            <ObjectStatus title="Rejected" text="{logsModel>/rejectedCount}" state="Error"/>
+                        </statuses>
+                    </ObjectHeader>
+                </VBox>
+            </l:BlockLayoutCell>
+
+        </l:BlockLayoutRow>
+
+    </l:BlockLayout>
+
+</core:FragmentDefinition>

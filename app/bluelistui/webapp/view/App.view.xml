@@ -4,4 +4,11 @@
     xmlns="sap.m">
     <App id="app">
     </App>
+    <!-- Floating Chatbot Button -->
+    <Button
+        id="chatbotFab"
+        icon="sap-icon://da"
+        press=".onChatbotToggle"
+        tooltip="Bluelist Assistant"
+        class="chatbotFab"/>
 </mvc:View>

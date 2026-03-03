@@ -28,3 +28,157 @@
 .dashboardTile .sapMImg {
     font-size: 3rem;
 }
+
+/* ================================================================
+   CHATBOT STYLES
+   ================================================================ */
+
+/* Floating Action Button */
+.chatbotFab {
+    position: fixed !important;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    background: #0070f2 !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chatbotFab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(0, 112, 242, 0.4) !important;
+}
+.chatbotFab .sapMBtnInner {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    min-width: unset !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 50% !important;
+}
+.chatbotFab .sapMBtnIcon {
+    color: #fff !important;
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}
+
+/* Dialog */
+.chatbotDialog {
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18) !important;
+}
+.chatbotDialog .sapMDialogSection {
+    padding: 0 !important;
+}
+.chatbotDialog .sapMDialogScroll {
+    padding: 0 !important;
+}
+/* Remove the default backdrop so the app stays interactive */
+.chatbotDialog + .sapMDialogBLyInit,
+.sapMDialogBlockLayerAnimation {
+    display: none !important;
+}
+
+/* Header icon */
+.chatbotHeaderIcon {
+    color: #0070f2;
+    font-size: 1.25rem;
+}
+
+/* Body layout */
+.chatbotBody {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Messages scroll area */
+.chatMessagesScroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0.5rem;
+    background: #f5f6f7;
+}
+
+.chatMessagesBox {
+    padding: 0.25rem;
+}
+
+/* Chat bubbles */
+.chatBubbleWrap {
+    max-width: 85%;
+}
+
+.chatBubbleBot {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px 12px 12px 2px;
+    padding: 10px 14px;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.chatBubbleUser {
+    background: #0070f2;
+    color: #ffffff;
+    border-radius: 12px 12px 2px 12px;
+    padding: 10px 14px;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    box-shadow: 0 1px 3px rgba(0, 112, 242, 0.15);
+}
+
+.chatBubbleUser strong {
+    color: #ffffff;
+}
+
+/* Quick actions */
+.chatQuickActions {
+    padding: 6px 8px;
+    gap: 4px;
+    background: #f5f6f7;
+    border-top: 1px solid #e0e0e0;
+    flex: 0 0 auto;
+}
+
+.chatQuickBtn {
+    font-size: 0.75rem !important;
+    height: 28px !important;
+    min-width: auto !important;
+    border-radius: 14px !important;
+}
+
+/* Input area */
+.chatInputArea {
+    padding: 8px;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
+    gap: 6px;
+    flex: 0 0 auto;
+}
+
+.chatInputField {
+    flex: 1;
+}
+
+.chatSendBtn {
+    flex: 0 0 auto;
+    border-radius: 50% !important;
+    min-width: 36px !important;
+    height: 36px !important;
+}

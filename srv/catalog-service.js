@@ -20,21 +20,89 @@ function getMailTransporter() {
     return _mailTransporter;
 }
 
-const DEFAULT_APPROVER_EMAIL = 'chandeep2013@gmail.com';
+const DEFAULT_APPROVER_EMAIL = 'Chamdeep.Mudigolam@in.bosch.com';
 
 function _buildRequestDetailHtml(requestData) {
     return `
-        <table style="border-collapse: collapse; width: 100%;">
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Full Name</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.FullName || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>NT ID</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.NTID || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.MailID || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Status</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.Status || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Training Status</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.TrainingStatus || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Access From</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.AccessFromDate || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Access End</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.AccessEndDate || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Approver NT ID</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.ApproverNTID || ''}</td></tr>
-            <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Comments</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${requestData.Comments || ''}</td></tr>
+        <table width="100%" cellpadding="0" cellspacing="0" 
+               style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; font-size:14px; background:#ffffff;">
+
+            <!-- BOSCH HEADER -->
+<tr>
+    <td colspan="2" style="padding:20px 20px 10px 20px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- Left: Bosch Logo -->
+                <td align="left" valign="middle">
+                    <img src="https://i.ibb.co/your-real-image.png" 
+                         alt="Bosch" 
+                         style="height:40px; display:block;">
+                </td>
+
+                <!-- Right: Request Info -->
+                <td align="right" valign="middle" 
+                    style="font-size:14px; line-height:20px;">
+                    <strong>Request No:</strong> ${requestData.RequestNo || ''}<br>
+                    ${requestData.NTID || ''}
+                </td>
+            </tr>
         </table>
+    </td>
+</tr>
+
+<!-- COLOR STRIP -->
+<tr>
+    <td colspan="2">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="14%" bgcolor="#8b1c2d" height="6">&nbsp;</td>
+                <td width="14%" bgcolor="#e31c24" height="6">&nbsp;</td>
+                <td width="14%" bgcolor="#5e3c99" height="6">&nbsp;</td>
+                <td width="14%" bgcolor="#2c5aa0" height="6">&nbsp;</td>
+                <td width="14%" bgcolor="#1f77b4" height="6">&nbsp;</td>
+                <td width="14%" bgcolor="#17becf" height="6">&nbsp;</td>
+                <td width="16%" bgcolor="#2ca02c" height="6">&nbsp;</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+            <!-- SPACE -->
+            <tr>
+                <td colspan="2" style="height:20px;"></td>
+            </tr>
+
+            <!-- SECTION HEADER -->
+            <tr>
+                <td colspan="2" style="background:#d9d9d9; padding:8px 12px; font-weight:bold;">
+                    Request Details
+                </td>
+            </tr>
+
+            ${_row("Full Name", requestData.FullName)}
+            ${_row("NT ID", requestData.NTID)}
+            ${_row("Email", requestData.MailID)}
+            ${_row("Status", requestData.Status)}
+            ${_row("Training Status", requestData.TrainingStatus)}
+            ${_row("Access From", requestData.AccessFromDate)}
+            ${_row("Access End", requestData.AccessEndDate)}
+            ${_row("Approver NT ID", requestData.ApproverNTID)}
+            ${_row("Comments", requestData.Comments)}
+
+        </table>
+    `;
+}
+
+function _row(label, value) {
+    return `
+        <tr>
+            <td style="padding:10px 12px; width:35%; font-weight:bold; border-bottom:1px solid #e5e5e5;">
+                ${label}
+            </td>
+            <td style="padding:10px 12px; border-bottom:1px solid #e5e5e5;">
+                ${value || ''}
+            </td>
+        </tr>
     `;
 }
 
@@ -106,7 +174,8 @@ async function sendApproverActionMail(requestData, action) {
     const actionLabels = {
         'Approved': { verb: 'Approved', color: '#28a745', icon: '✅' },
         'Rejected': { verb: 'Rejected', color: '#dc3545', icon: '❌' },
-        'Sent Back': { verb: 'Sent Back', color: '#ffc107', icon: '🔄' }
+        'Sent Back': { verb: 'Sent Back', color: '#ffc107', icon: '🔄' },
+        'Revoked': { verb: 'Revoked', color: '#dc3545', icon: '🚫' }
     };
     const label = actionLabels[action] || { verb: action, color: '#6c757d', icon: 'ℹ️' };
 
@@ -123,6 +192,7 @@ async function sendApproverActionMail(requestData, action) {
             ${action === 'Sent Back' ? '<p>Please review and resubmit your request with the necessary changes.</p>' : ''}
             ${action === 'Approved' ? '<p>You now have access as per the request details above.</p>' : ''}
             ${action === 'Rejected' ? '<p>If you have questions, please contact the approver.</p>' : ''}
+            ${action === 'Revoked' ? '<p>Your previously approved access has been revoked. If you believe this is an error, please contact the approver.</p>' : ''}
         `
     };
 
@@ -213,7 +283,7 @@ class ApproverServiceHandler extends cds.ApplicationService {
         // Send email to requestor whenever Status is changed via UPDATE (from approver screen)
         this.after('UPDATE', 'Requests', async (data, req) => {
             const newStatus = data.Status;
-            if (newStatus && ['Approved', 'Rejected', 'Sent Back'].includes(newStatus)) {
+            if (newStatus && ['Approved', 'Rejected', 'Sent Back', 'Revoked'].includes(newStatus)) {
                 const request = await SELECT.one.from(Requests).where({ RequestID: data.RequestID });
                 if (request) {
                     try {
