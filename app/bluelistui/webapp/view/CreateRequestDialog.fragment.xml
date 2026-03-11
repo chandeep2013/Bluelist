@@ -4,9 +4,23 @@
     xmlns:f="sap.ui.layout.form">
     <Dialog id="createRequestDialog"
         title="{formModel>/dialogTitle}"
-        contentWidth="550px"
+        contentWidth="600px"
         draggable="true"
-        resizable="true">
+        resizable="true"
+        class="blDialog">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <core:Icon src="sap-icon://write-new-document" class="blDialogHeaderIcon"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="{formModel>/dialogTitle}" level="H4" class="blDialogHeaderTitle"/>
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://decline" type="Transparent" press=".onCancelDialog" tooltip="Close"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
         <content>
             <f:SimpleForm id="dialogForm"
                 editable="true"
@@ -14,7 +28,11 @@
                 labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
                 emptySpanXL="0" emptySpanL="0" emptySpanM="0"
                 columnsXL="1" columnsL="1" columnsM="1"
-                class="sapUiSmallMarginTop">
+                class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+
+                <f:title>
+                    <core:Title text="Requestor Information" icon="sap-icon://employee"/>
+                </f:title>
 
                 <Label text="NT ID" required="true"/>
                 <Input id="dlgNTID" value="{formModel>/NTID}" placeholder="Enter your NT ID"/>
@@ -23,40 +41,48 @@
                 <Input id="dlgFullName" value="{formModel>/FullName}" placeholder="Enter your full name"/>
 
                 <Label text="Email ID" required="true"/>
-                <Input id="dlgMailID" value="{formModel>/MailID}" type="Email" placeholder="Enter your email"/>
+                <Input id="dlgMailID" value="{formModel>/MailID}" type="Email" placeholder="Enter your email address"/>
+
+                <f:title>
+                    <core:Title text="Access Details" icon="sap-icon://locked"/>
+                </f:title>
 
                 <Label text="Project" required="true"/>
-                <Select id="dlgProject"
-                    forceSelection="false"
+                <ComboBox id="dlgProject"
+                    placeholder="Select a Project"
                     selectedKey="{formModel>/Project_ProjectID}"
                     items="{/Projects}">
                     <core:Item key="{ProjectID}" text="{ProjectName}"/>
-                </Select>
+                </ComboBox>
 
                 <Label text="Table" required="true"/>
-                <Select id="dlgTable"
-                    forceSelection="false"
+                <ComboBox id="dlgTable"
+                    placeholder="Select a Table"
                     selectedKey="{formModel>/Table_TableID}"
                     items="{/Tables}">
                     <core:Item key="{TableID}" text="{TableName}"/>
-                </Select>
+                </ComboBox>
 
                 <Label text="Role" required="true"/>
-                <Select id="dlgRole"
-                    forceSelection="false"
+                <ComboBox id="dlgRole"
+                    placeholder="Select a Role"
                     selectedKey="{formModel>/Role_RoleID}"
                     items="{/Roles}">
                     <core:Item key="{RoleID}" text="{RoleName}"/>
-                </Select>
+                </ComboBox>
 
                 <Label text="Training Status" required="true"/>
-                <Select id="dlgTrainingStatus"
-                    forceSelection="false"
+                <ComboBox id="dlgTrainingStatus"
+                    placeholder="Select Training Status"
                     selectedKey="{formModel>/TrainingStatus}">
                     <core:Item key="Completed" text="Completed"/>
                     <core:Item key="In Progress" text="In Progress"/>
                     <core:Item key="Not Started" text="Not Started"/>
-                </Select>
+                </ComboBox>
+
+                <f:title>
+                    <core:Title text="Access Period" icon="sap-icon://date-time"/>
+                </f:title>
 
                 <Label text="Access From Date" required="true"/>
                 <DatePicker id="dlgFromDate" value="{formModel>/AccessFromDate}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="Select start date"/>
@@ -65,7 +91,7 @@
                 <DatePicker id="dlgEndDate" value="{formModel>/AccessEndDate}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="Select end date"/>
 
                 <Label text="Comments"/>
-                <TextArea id="dlgComments" value="{formModel>/Comments}" rows="3" placeholder="Enter any comments"/>
+                <TextArea id="dlgComments" value="{formModel>/Comments}" rows="3" placeholder="Enter additional comments (optional)" growing="true"/>
 
             </f:SimpleForm>
         </content>
@@ -73,7 +99,7 @@
             <Button text="{formModel>/submitButtonText}" type="Emphasized" icon="sap-icon://paper-plane" press=".onSubmitRequest"/>
         </beginButton>
         <endButton>
-            <Button text="Cancel" press=".onCancelDialog"/>
+            <Button text="Cancel" icon="sap-icon://cancel" press=".onCancelDialog"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

@@ -2,46 +2,135 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Page id="dashboardPage" title="Bluelist - Access Management" showNavButton="false">
+
+    <Page id="dashboardPage" showNavButton="false" showHeader="false">
         <content>
-            <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMarginTop">
-                <Title text="Welcome to Bluelist Access Management" level="H1" class="sapUiMediumMarginBottom"/>
-                <Text text="Select an option to continue" class="sapUiSmallMarginBottom sapThemeHighlight-asColor"/>
-                <HBox justifyContent="Center" class="sapUiLargeMarginTop" wrap="Wrap">
-                    <GenericTile
-                        id="tileRequestor"
-                        header="Submit Request"
-                        subheader="Create a new access request"
-                        press=".onRequestorTilePress"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom dashboardTile"
-                        frameType="OneByOne"
-                        state="Loaded">
-                        <tileContent>
-                            <TileContent>
-                                <content>
-                                    <ImageContent src="sap-icon://create-form"/>
-                                </content>
-                            </TileContent>
-                        </tileContent>
-                    </GenericTile>
-                    <GenericTile
-                        id="tileApprover"
-                        header="Approve Requests"
-                        subheader="Review and approve pending requests"
-                        press=".onApproverTilePress"
-                        class="sapUiSmallMarginBegin sapUiSmallMarginBottom dashboardTile"
-                        frameType="OneByOne"
-                        state="Loaded">
-                        <tileContent>
-                            <TileContent>
-                                <content>
-                                    <ImageContent src="sap-icon://approvals"/>
-                                </content>
-                            </TileContent>
-                        </tileContent>
-                    </GenericTile>
+
+            <!-- ── Hero Banner ─────────────────────────────────── -->
+            <VBox class="blHero">
+                <HBox alignItems="Center" justifyContent="SpaceBetween" class="blHeroInner">
+                    <VBox>
+                        <Title text="Bluelist Access Management" level="H1" class="blHeroTitle"/>
+                        <Text text="Centralised data-access governance for all projects" class="blHeroSub"/>
+                    </VBox>
+                    <core:Icon src="sap-icon://shield" class="blHeroIcon"/>
                 </HBox>
             </VBox>
+
+            <!-- ── KPI Strip ────────────────────────────────────── -->
+            <HBox justifyContent="Center" wrap="Wrap" class="blKpiStrip">
+                <GenericTile
+                    id="kpiTotal"
+                    header="Total Requests"
+                    subheader="All time"
+                    frameType="OneByOne"
+                    class="blKpiTile"
+                    state="{dashModel>/kpiState}"
+                    press=".onRequestorTilePress">
+                    <tileContent>
+                        <TileContent>
+                            <content>
+                                <NumericContent value="{dashModel>/totalCount}" icon="sap-icon://document-text" valueColor="Neutral" scale=""/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+
+                <GenericTile
+                    id="kpiPending"
+                    header="Pending Approval"
+                    subheader="Awaiting review"
+                    frameType="OneByOne"
+                    class="blKpiTile"
+                    state="{dashModel>/kpiState}"
+                    press=".onApproverTilePress">
+                    <tileContent>
+                        <TileContent>
+                            <content>
+                                <NumericContent value="{dashModel>/pendingCount}" icon="sap-icon://pending" valueColor="Critical" scale=""/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+
+                <GenericTile
+                    id="kpiApproved"
+                    header="Approved"
+                    subheader="Access granted"
+                    frameType="OneByOne"
+                    class="blKpiTile"
+                    state="{dashModel>/kpiState}"
+                    press=".onApproverTilePress">
+                    <tileContent>
+                        <TileContent>
+                            <content>
+                                <NumericContent value="{dashModel>/approvedCount}" icon="sap-icon://accept" valueColor="Good" scale=""/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+
+                <GenericTile
+                    id="kpiRejected"
+                    header="Rejected"
+                    subheader="Requests declined"
+                    frameType="OneByOne"
+                    class="blKpiTile"
+                    state="{dashModel>/kpiState}"
+                    press=".onApproverTilePress">
+                    <tileContent>
+                        <TileContent>
+                            <content>
+                                <NumericContent value="{dashModel>/rejectedCount}" icon="sap-icon://decline" valueColor="Error" scale=""/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+            </HBox>
+
+            <!-- ── Section Label ───────────────────────────────── -->
+            <HBox class="blSectionHeader" alignItems="Center">
+                <core:Icon src="sap-icon://navigation-right-arrow" class="blSectionIcon"/>
+                <Title text="Quick Actions" level="H4" class="blSectionTitle"/>
+            </HBox>
+
+            <!-- ── Navigation Cards ────────────────────────────── -->
+            <HBox justifyContent="Center" wrap="Wrap" class="blNavRow">
+                <GenericTile
+                    id="tileRequestor"
+                    header="Submit Request"
+                    subheader="Create a new data access request for a project table"
+                    press=".onRequestorTilePress"
+                    class="blNavTile"
+                    frameType="TwoByOne"
+                    state="Loaded">
+                    <tileContent>
+                        <TileContent footer="Requestor Portal">
+                            <content>
+                                <ImageContent src="sap-icon://create-form"/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+
+                <GenericTile
+                    id="tileApprover"
+                    header="Approve Requests"
+                    subheader="Review, approve or reject pending access requests"
+                    press=".onApproverTilePress"
+                    class="blNavTile"
+                    frameType="TwoByOne"
+                    state="Loaded">
+                    <tileContent>
+                        <TileContent footer="Approver Portal">
+                            <content>
+                                <ImageContent src="sap-icon://approvals"/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+            </HBox>
+
         </content>
     </Page>
 </mvc:View>

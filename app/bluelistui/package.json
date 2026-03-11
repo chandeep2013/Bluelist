@@ -9,11 +9,11 @@
   ],
   "main": "webapp/index.html",
   "dependencies": {
-    "mbt": "1.2.24"
+    "mbt": "^1.2.43"
   },
   "devDependencies": {
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^1.14.0",
+    "@ui5/cli": "^4.0.47",
     "ui5-task-zipper": "^3.4.x"
   },
   "scripts": {

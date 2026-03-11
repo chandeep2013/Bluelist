@@ -6,9 +6,10 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
     "sap/m/ObjectStatus",
     "../model/formatter"
-], (Controller, JSONModel, MessageBox, MessageToast, Fragment, Filter, FilterOperator, ObjectStatus, formatter) => {
+], (Controller, JSONModel, MessageBox, MessageToast, Fragment, Filter, FilterOperator, Sorter, ObjectStatus, formatter) => {
     "use strict";
 
     return Controller.extend("com.bgsw.bluelistui.controller.View1", {
@@ -76,6 +77,9 @@ sap.ui.define([
             const oBindingParams = oEvent.getParameter("bindingParams");
             const oFilterModel = this.getView().getModel("filterModel");
             const oFilterData = oFilterModel.getData();
+
+            // Sort by creation date descending so latest requests appear first
+            oBindingParams.sorter.push(new Sorter("createdAt", true));
 
             // Expand navigation properties to fetch Project Name and Table Name
             if (oBindingParams.parameters.expand) {

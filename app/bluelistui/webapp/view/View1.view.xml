@@ -4,9 +4,19 @@
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <Page id="page" title="{i18n>title}" showNavButton="true" navButtonPress=".onNavBack">
+
+    <Page id="page" showNavButton="true" navButtonPress=".onNavBack" showHeader="false">
         <content>
-            <VBox class="sapUiSmallMargin">
+
+            <!-- ── Page Header Bar ──────────────────────────────── -->
+            <Toolbar class="blPageHeader">
+                <Button icon="sap-icon://nav-back" press=".onNavBack" type="Transparent" class="blBackBtn"/>
+                <Title text="Access Requests" level="H3" class="blPageHeaderTitle"/>
+                <ToolbarSpacer/>
+                <core:Icon src="sap-icon://employee" class="blPageHeaderIcon"/>
+            </Toolbar>
+
+            <VBox class="blContentArea">
 
                 <!-- Smart Filter Bar -->
                 <smartFilterBar:SmartFilterBar id="smartFilterBar"
@@ -62,13 +72,19 @@
                         <OverflowToolbar>
                             <ToolbarSpacer/>
                             <Button id="btnCreate"
-                                text="Create"
+                                text="New Request"
+                                icon="sap-icon://add"
+                                type="Emphasized"
                                 press=".onCreateRequest"/>
                             <Button id="btnEdit"
                                 text="Edit"
+                                icon="sap-icon://edit"
+                                type="Default"
                                 press=".onEditRequest"/>
                             <Button id="btnDelete"
                                 text="Delete"
+                                icon="sap-icon://delete"
+                                type="Negative"
                                 press=".onDeleteRequest"/>
                         </OverflowToolbar>
                     </smartTable:customToolbar>

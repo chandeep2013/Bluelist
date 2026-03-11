@@ -8,12 +8,21 @@
 >
     <Page
         id="approverPage"
-        title="Approve Access Requests"
         showNavButton="true"
         navButtonPress=".onNavBack"
+        showHeader="false"
     >
         <content>
-            <VBox class="sapUiSmallMargin">
+
+            <!-- ── Page Header Bar ──────────────────────────────── -->
+            <Toolbar class="blPageHeader">
+                <Button icon="sap-icon://nav-back" press=".onNavBack" type="Transparent" class="blBackBtn"/>
+                <Title text="Approve Access Requests" level="H3" class="blPageHeaderTitle"/>
+                <ToolbarSpacer/>
+                <core:Icon src="sap-icon://approvals" class="blPageHeaderIcon"/>
+            </Toolbar>
+
+            <VBox class="blContentArea">
                 <!-- Smart Filter Bar -->
                 <smartFilterBar:SmartFilterBar
                     id="approverSmartFilterBar"
@@ -66,13 +75,16 @@
                         </smartFilterBar:ControlConfiguration>
                     </smartFilterBar:controlConfiguration>
                 </smartFilterBar:SmartFilterBar>
+
                 <IconTabBar
                     expanded="{device>/isNoPhone}"
-                    class="sapUiResponsiveContentPadding"
+                    class="sapUiResponsiveContentPadding blIconTabBar"
                 >
                     <items>
                         <IconTabFilter
-                            text="Pending Requests"
+                            text="Pending"
+                            icon="sap-icon://pending"
+                            iconColor="Critical"
                             key="info"
                         >
                             <!-- Smart Table -->
@@ -116,14 +128,18 @@
                                             id="btnSendBack"
                                             text="Send Back"
                                             icon="sap-icon://undo"
+                                            type="Default"
                                             press=".onSendBackRequest"
                                         />
                                     </OverflowToolbar>
                                 </smartTable:customToolbar>
                             </smartTable:SmartTable>
                         </IconTabFilter>
+
                         <IconTabFilter
                             text="Approved"
+                            icon="sap-icon://sys-enter-2"
+                            iconColor="Positive"
                             key="approved"
                         >
                             <smartTable:SmartTable
@@ -149,17 +165,20 @@
                                         <ToolbarSpacer />
                                         <Button
                                             id="btnRevoke"
-                                            text="Revoke"
+                                            text="Revoke Access"
                                             icon="sap-icon://sys-cancel"
-                                            type="Reject"
+                                            type="Negative"
                                             press=".onRevokeRequest"
                                         />
                                     </OverflowToolbar>
                                 </smartTable:customToolbar>
                             </smartTable:SmartTable>
                         </IconTabFilter>
+
                         <IconTabFilter
                             text="Revoked"
+                            icon="sap-icon://cancel"
+                            iconColor="Negative"
                             key="revoked"
                         >
                             <smartTable:SmartTable
@@ -181,8 +200,11 @@
                                 initialise=".onRevokedSmartTableInit"
                             />
                         </IconTabFilter>
+
                         <IconTabFilter
-                            text="Logs"
+                            text="Analytics"
+                            icon="sap-icon://bar-chart"
+                            iconColor="Neutral"
                             key="logs"
                         >
                             <core:Fragment

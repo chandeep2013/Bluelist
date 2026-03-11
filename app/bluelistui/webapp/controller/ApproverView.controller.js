@@ -5,10 +5,11 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
     "sap/m/ObjectStatus",
     "../model/formatter",
     "sap/viz/ui5/format/ChartFormatter"
-], (Controller, JSONModel, MessageBox, MessageToast, Filter, FilterOperator, ObjectStatus, formatter, ChartFormatter) => {
+], (Controller, JSONModel, MessageBox, MessageToast, Filter, FilterOperator, Sorter, ObjectStatus, formatter, ChartFormatter) => {
     "use strict";
 
     return Controller.extend("com.bgsw.bluelistui.controller.ApproverView", {
@@ -127,6 +128,9 @@ sap.ui.define([
             // Always filter for Pending Approval requests
             oBindingParams.filters.push(new Filter("Status", FilterOperator.EQ, "Pending Approval"));
 
+            // Sort by creation date descending so latest requests appear first
+            oBindingParams.sorter.push(new Sorter("createdAt", true));
+
             // Expand navigation properties
             if (oBindingParams.parameters.expand) {
                 oBindingParams.parameters.expand += ",Project,Table,Role";
@@ -148,6 +152,9 @@ sap.ui.define([
 
             // Only show Approved records
             oBindingParams.filters.push(new Filter("Status", FilterOperator.EQ, "Approved"));
+
+            // Sort by creation date descending so latest requests appear first
+            oBindingParams.sorter.push(new Sorter("createdAt", true));
 
             // Expand navigation properties
             if (oBindingParams.parameters.expand) {
@@ -171,6 +178,9 @@ sap.ui.define([
 
             // Only show Revoked records
             oBindingParams.filters.push(new Filter("Status", FilterOperator.EQ, "Revoked"));
+
+            // Sort by creation date descending so latest requests appear first
+            oBindingParams.sorter.push(new Sorter("createdAt", true));
 
             // Expand navigation properties
             if (oBindingParams.parameters.expand) {
